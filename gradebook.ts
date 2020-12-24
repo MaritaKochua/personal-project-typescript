@@ -7,7 +7,7 @@ interface Gradebooks{
     id?:string;
     level: number;
     group: Group;
-    records: Record;
+    records: Record[];
 }
 
 interface Record  {
@@ -49,7 +49,7 @@ class Gradebooks{
             throw new Error ('Journal does not exist');
         } 
         const pupils = this.m.get(gradebookId)!.group.pupils;
-        if(record.subjectId === undefined || record.subjectId !== this.lms.get(record.subjectId).id){
+        if(record.subjectId === undefined || record.subjectId !== this.lms.get(record.subjectId)!.id){
             throw new Error ('Subject does not exist');
         } 
 
@@ -69,7 +69,7 @@ class Gradebooks{
         pupils!.get(record.pupilId)!.records.push(newRecord);
     }
     read(gradebookId:string, pupilId:string){
-        const pupils = this.m.get(gradebookId).group.pupils;
+        const pupils = this.get(gradebookId).group.pupils;
         const grades = pupils.get(pupilId).records;
         const newRecord = {
             name: pupils.get(pupilId).name.first + " " + pupils.get(pupilId).name.last,
