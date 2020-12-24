@@ -1,8 +1,8 @@
-import { pupil, pupils } from './pupils.js';
+import { pupil, pupils, PupilStructure } from './pupils.js';
 
 interface Group{
-    room: number;
     id?: string;
+    room: number;
     pupils?: Map<string, object>;
 }
 
@@ -42,43 +42,40 @@ class Groups{
         if(!!x) {
             throw new Error("Parameter can't be passed");
         } else {
-            let arr = [];
+            let arr: Group[] = [];
             for (let value of this.m.values()) arr.push(value);
             // console.log('arr');
             return arr;
         }
     }
-    update(id:string, updated:number){
+    update(id:string, updated:object){
         if(!this.m.has(id) || this.m.get(id) === undefined) {
             throw new Error("Id does not exist");
-        } else if(typeof updated !== 'object'){
-            throw new Error("Updated entry must be an object");
-        }
-        let newUser = this.m.get(id);
+        } 
+        let newUser:Group = this.m.get(id)!;
         let newkey = Object.keys(updated)[0];
+        console.log(newUser);
         let value = Object.values(updated)[0]; 
-        newUser[newkey] = value;
+        newUser.room = value;
         this.m.set(id, newUser)
         return this.m.get(id);
     }
-    addPupil(id, pupil){
+    addPupil(id:string, pupil:PupilStructure){
         if(!this.m.has(id) || this.m.get(id) === undefined) {
             throw new Error ('Group does not exist');
-        } else if(typeof pupil !== 'object'){
-            throw new Error ('Pupil must be an object!');
         } else{
-            let group = this.m.get(id);
-            group.pupils.set(pupil.id, pupil);
+            let group:Group = this.m.get(id)!;
+            group.pupils!.set(pupil.id!, pupil);
         }
     }
-    removePupil(id, pupil){
+    removePupil(id:string, pupil:string){
         if(!this.m.has(id) || this.m.get(id) === undefined) {
             throw new Error ('Group does not exist');
-        } else if(!this.m.get(id).pupils.has(pupil)){
+        } else if(!this.m.get(id)!.pupils!.has(pupil)){
             throw new Error ('Pupil is not in this group!');
         } else{
-            let group = this.m.get(id);
-            group.pupils.delete(pupil);
+            let group:Group = this.m.get(id)!;
+            group.pupils!.delete(pupil);
             return true;
         }
     }
@@ -91,8 +88,10 @@ const groups = new Groups();
 const groupId = groups.add(room);
 const groupId2 = groups.add(room2);
 
+groups.update(groupId, {
+    room: 237
+  });
+// groups.addPupil(groupId, pupil);
 
-groups.addPupil(groupId, pupil);
 
-
-export{ groups, pupil, groupId };
+export{ Group, groups, pupil, groupId };

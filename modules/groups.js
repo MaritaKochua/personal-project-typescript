@@ -53,22 +53,17 @@ class Groups {
         if (!this.m.has(id) || this.m.get(id) === undefined) {
             throw new Error("Id does not exist");
         }
-        else if (typeof updated !== 'object') {
-            throw new Error("Updated entry must be an object");
-        }
         let newUser = this.m.get(id);
         let newkey = Object.keys(updated)[0];
+        console.log(newUser);
         let value = Object.values(updated)[0];
-        newUser[newkey] = value;
+        newUser.room = value;
         this.m.set(id, newUser);
         return this.m.get(id);
     }
     addPupil(id, pupil) {
         if (!this.m.has(id) || this.m.get(id) === undefined) {
             throw new Error('Group does not exist');
-        }
-        else if (typeof pupil !== 'object') {
-            throw new Error('Pupil must be an object!');
         }
         else {
             let group = this.m.get(id);
@@ -96,4 +91,6 @@ exports.groups = groups;
 const groupId = groups.add(room);
 exports.groupId = groupId;
 const groupId2 = groups.add(room2);
-groups.addPupil(groupId, pupils_js_1.pupil);
+groups.update(groupId, {
+    room: 237
+});

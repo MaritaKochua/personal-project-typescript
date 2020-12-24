@@ -91,9 +91,8 @@ const lms = new LMS();
   });
   
     lms.add(arts);
-    lms.add(arts);
     lms.add(math);
 
 
 
-export{ lms, arts };
+export{ lms, arts , LMSStructure};

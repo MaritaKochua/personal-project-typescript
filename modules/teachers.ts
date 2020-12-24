@@ -128,4 +128,4 @@ const teacherId = teachers.add(data);
 console.log(teachers.read(teacherId));
 
 
-export { teachers, teacherId , date};
+export { teachers, teacherId , date, TeacherStructure};

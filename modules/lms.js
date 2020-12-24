@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.arts = exports.lms = void 0;
+exports.LMSStructure = exports.arts = exports.lms = void 0;
 // const addUID = <T extends object>(obj: T) => {
 //     let uid = (0|Math.random()*6.04e7).toString(36);
 //     return {...obj, uid}
@@ -18,6 +18,7 @@ class Subject {
 var LMSStructure;
 (function (LMSStructure) {
 })(LMSStructure || (LMSStructure = {}));
+exports.LMSStructure = LMSStructure;
 class LMS {
     constructor() {
         this.m = new Map();
@@ -78,6 +79,5 @@ const notMath = new Subject({
     title: 'notMath',
     lessons: 10
 });
-lms.add(arts);
 lms.add(arts);
 lms.add(math);
